@@ -12,54 +12,53 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - name: Install tools
+        run: |
+          npm install -g html-minifier-terser clean-css-cli terser imagemin-cli imagemin-mozjpeg imagemin-pngquant imagemin-svgo imagemin-webp
 
-    - name: Install tools
-      run: |
-        npm install -g html-minifier-terser clean-css-cli terser imagemin-cli imagemin-mozjpeg imagemin-pngquant imagemin-svgo imagemin-webp
+      - name: Minify HTML
+        run: |
+          find . -name "*.html" -type f -print0 \
+            | xargs -0 -I {} sh -c 'html-minifier-terser \
+                --collapse-whitespace \
+                --remove-comments \
+                --remove-optional-tags \
+                --minify-css true \
+                --minify-js true \
+                {} -o {}'
 
-    - name: Minify HTML
-      run: |
-        find . -name "*.html" -type f -print0 \
-          | xargs -0 -I {} sh -c 'html-minifier-terser \
-              --collapse-whitespace \
-              --remove-comments \
-              --remove-optional-tags \
-              --minify-css true \
-              --minify-js true \
-              {} -o {}'
+      - name: Minify CSS
+        run: |
+          find . -name "*.css" -type f -print0 \
+            | xargs -0 -I {} sh -c 'cleancss -o {} {}'
 
-    - name: Minify CSS
-      run: |
-        find . -name "*.css" -type f -print0 \
-          | xargs -0 -I {} sh -c 'cleancss -o {} {}'
+      - name: Minify JavaScript
+        run: |
+          find . -name "*.js" -type f -print0 \
+            | xargs -0 -I {} sh -c 'terser {} -o {} --compress --mangle'
 
-    - name: Minify JavaScript
-      run: |
-        find . -name "*.js" -type f -print0 \
-          | xargs -0 -I {} sh -c 'terser {} -o {} --compress --mangle'
+      - name: Optimize images
+        run: |
+          imagemin "**/*.{jpg,jpeg,png,svg,webp}" \
+            --plugin=mozjpeg \
+            --plugin=pngquant \
+            --plugin=svgo \
+            --plugin=webp \
+            --out-dir="."
 
-    - name: Optimize images
-      run: |
-        imagemin "**/*.{jpg,jpeg,png,svg,webp}" \
-          --plugin=mozjpeg \
-          --plugin=pngquant \
-          --plugin=svgo \
-          --plugin=webp \
-          --out-dir="."
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
 
   deploy:
     needs: build
