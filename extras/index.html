@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="extras.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="gra">
+        <div class="flash off"></div>
+        <div class="static"></div>
+
+        <div class="scan"></div>
+
+        <h1>extras</h1>
+
+        <div class="buttons">
+            <button id="new"      onclick="newgame()"                     ><span class="arrow"></span>new game</button>
+            <button id="continue" onclick="continuegame()" class="hidden" ><span class="arrow"></span>continue</button>
+            <button id="extra"    onclick="extramenu()"    class="hidden" ><span class="arrow"></span>extra</button>
+        </div>
+
+    </div>
+
+    <div class="debug">
+        <p>piotr</p>
+        <p id="savecookie"></p>
+       
+        <input type="number" name="" id="nightnum">
+        <button id="setnight"> set current night</button>
+        <br>
+        <button id="resetsave">reset save</button>
+    </div>
+
+</body>
+</html>
+
+<script src="extras.js"></script>

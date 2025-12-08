@@ -1,0 +1,571 @@
+.gra {
+    margin: 0;
+    position: fixed;
+    background-color: #000;
+    width: 800px;
+    height: 600px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.jumpscare {
+  position: absolute;
+  width: 800px;
+  height: 600px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.jumpscare.no {
+  z-index: 0;
+}
+
+.nightintro {
+  position: absolute;
+  width: 800px;
+  text-align: center;
+  font-family: 'fnaf', 'Comic Sans MS';
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.nightintro.hide {
+  display: none;
+}
+
+.flash {
+  width: 800px;
+  height: 600px;
+  background-color: white;
+}
+
+.flash.off {
+  display: none;
+}
+
+.map {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  z-index: 20;
+}
+
+.map p {
+  color: white;
+  font-family: 'Papyrus';
+  margin: 5px 0;
+}
+
+.map img {
+  filter: brightness(2) grayscale(1);
+}
+
+.pokoj {
+  height: 600px;
+  width: 800px;
+}
+
+.nightintro h2 {
+  color: white;
+  animation: fadeout 2s 3s forwards;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  91% {
+    opacity: 0;
+    z-index: 3;
+  }
+  100% {
+    display: none;
+    z-index: -5;
+    opacity: 0;
+  }
+}
+
+#newspaper {
+  animation: fadeout 1.1s linear forwards;
+  position: absolute;
+  width: 800px;
+  height: 600px;
+  top: 0;
+  z-index: 3;
+  will-change: opacity;
+  transition: 3s linear;
+  filter: brightness(.7);
+}
+
+#newspaper.animless {
+  animation: none;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes noise {
+  0% {
+    transform: translateX(0px,0px); }
+  10% {
+    transform: translate(-100px, 100px);
+  }
+  20% {
+    transform: translate(150px, -100px);
+  }
+  30% {
+    transform: translate(-100px,100px);
+  }
+  40% {
+    transform: translate(100px, -150px);
+  }
+  50% {
+    transform: translate(-100px, 200px);
+  }
+  60% {
+    transform: translate(-200px, -100px);
+  }
+  70% {
+    transform: translateY(50px, 100px);
+  }
+  80% {
+    transform: translate(100px, -150px);
+  }
+  90% {
+    transform: translate(0px, 200px);
+  }
+  100% {
+    transform: translate(-100px, 100px);
+  }
+}
+
+.testicle {
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 0, 0, 0.2);
+  width: 800px;
+  height: 600px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 3;
+}
+
+.testicle.no {
+  display: none;
+  z-index: -2;
+}
+
+.static {
+    pointer-events: none;
+    position: absolute;
+    top: -500px;
+    right: -500px;
+    bottom: -500px;
+    left: -500px;
+    z-index: 7;
+    background: transparent url(/assets/ui/noise.png) 0 0;
+    background-size: 320px 320px;
+	  opacity: .3;
+	  animation: noise .1s steps(8,end) infinite both;
+    transition: opacity 1s linear;
+}
+
+.static.high {
+  opacity: .9;
+  background: #000 url(/assets/ui/noise.png);
+}
+
+.static.notrans {
+  transition: none;
+}
+
+.static.hide {
+  opacity: 0;
+}
+
+.debug {
+    position: absolute;
+    left: 850px;
+    top: 0;
+}
+
+
+#realgra {
+  height: 600px;
+  width: 800px;
+  z-index: 1;
+  position: absolute;
+}
+
+#realgra .bg {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 600px;
+}
+
+.doors {
+  position: relative;
+  z-index: 2;
+  justify-content: space-between;
+  display: flex;
+  width: 1233.33px;
+  padding: 0 50px;
+}
+
+.door {
+  opacity: 1;
+}
+
+.door#ldoor .fuckingleftdoor {
+  left: 402px;
+}
+
+.door button {
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+}
+
+.door button.l {
+  margin-top: 25px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  margin-top: 300px;
+  margin-left: 100px;
+}
+
+#ldoor button.l {
+  margin-left: -150px;
+}
+
+.doorbutton {
+  position: absolute;
+  margin-top: 40vh;
+  margin-left: 12.5vw;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+}
+
+.doorbutton.fuckingleftdoor {
+  margin-left: -150px;
+}
+
+.door img {
+  pointer-events: none;
+  filter: brightness(.25);
+}
+
+.door img.light {
+  filter: brightness(2);
+}
+
+.door img.r {
+  transform: scaleX(-1);
+}
+
+.ui {
+  position: relative;
+  z-index: 8;
+  font-family: 'Comic Sans MS';
+  height: 600px;
+  pointer-events: none;
+}
+
+.ui .topright {
+  position: absolute;
+  color: white;
+  top: 25px;
+  right: 25px;
+  text-align: right;
+}
+
+#hour {
+  text-align: right;
+}
+
+.bar {
+  position: absolute;
+  left: 250px;
+  bottom: 0;
+  background-color: transparent;
+  border: none;
+  height: 80px;
+  padding-bottom: 15px;
+  pointer-events: all;
+}
+
+.ui .bottomleft {
+  position: absolute;
+  color: white;
+  bottom: 25px;
+  left: 25px;
+  width: min-content;
+}
+
+h3 {
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+  white-space: nowrap;
+  margin: 0;
+  text-shadow: 2px 1px #00000085;
+}
+
+h3.smaller {
+  font-size: 20px;
+}
+
+.camui {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  height: 574px;
+  width: 774px;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+  border: 3px white solid;
+}
+
+@keyframes rec {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.camui .recording {
+  animation: rec 2s infinite ease-in-out;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: #d50000;
+  filter: blur(1px);
+  z-index: 2;
+}
+
+.room {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 600px;
+  width: 800px;
+}
+
+
+
+@keyframes cam {
+  10% {
+    left: -15px;
+  }
+  40% {
+    left: -545px;
+  }
+  60% {
+    left: -545px;
+  }
+  90% {
+    left: -15px;
+  }
+
+}
+
+.cam {
+  animation: cam 10s linear infinite;
+  position: absolute;
+  top: 0;
+  left: -15px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cameracontrols {
+  position: absolute;
+  height: 600px;
+  width: 800px;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+#leftmov, #rightmov {
+  height: 600px;
+  width: 250px;
+  opacity: 0;
+  /* background-color: blue; */
+  pointer-events: auto;
+}
+
+.mapcamselect {
+  pointer-events: all;
+  position: relative;
+  width: 300px;
+  z-index: 20;
+}
+
+.mapcamselect button {
+  background-color: #5a5a5a;
+  color: white;
+  font-family: 'Comic Sans MS';
+  font-size: .6rem;
+  cursor: pointer;
+  position: absolute;
+  border: 2px solid #808080;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.usagebar {
+  margin-left: 5px;
+  position: absolute;
+  bottom: 0;
+}
+
+@keyframes colorshowdeath {
+  0% {
+    background-color: transparent;
+    color: transparent;
+  }
+  50% {
+    background-color: rgba(130, 0, 0, 1);
+  }
+  100% {
+    background-color: #000;
+  }
+}
+
+.deathcounter {
+  color: #000;
+  text-align: center;
+  animation: colorshowdeath 10s forwards;
+  position: absolute;
+  width: 800px;
+  height: 600px;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  z-index: 25;
+}
+
+.deathcounter.notyet {
+  animation: none;
+  color: transparent;
+  display: none;
+}
+
+.deathcounter h4 {
+  margin: 0;
+  font-size: xx-large;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.end {
+  position: absolute;
+  width: 800px;
+  height: 600px;
+  top: 0;
+  left: 0;
+  z-index: 55;
+  background-color: #000;
+  opacity: 1;
+  transition: opacity 3s linear;
+}
+
+.end.no {
+  z-index: -55;
+  opacity: 0;
+}
+
+@font-face {
+  font-family: 'fnaf';
+  src: url(/assets/font/fnaf.ttf);
+}
+
+.end h2 {
+  font-family: 'fnaf';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  z-index: 55;
+}
+
+#c1 {
+  top: -39px;
+  left: 159px;
+}
+
+#c2 {
+  top: -177px;
+  left: 189px;
+}
+
+#c3 {
+  top: -85px;
+  left: 196px;
+}
+
+#c4 {
+  top: -85px;
+  left: 242px;
+}
+
+#c5 {
+  top: -85px;
+  left: 150px;
+}
+
+#c6 {
+  top: -159px;
+  left: 274px;
+}
+
+#c7 {
+  top: -168px;
+  left: -11px;
+}
+
+#c8 {
+  top: -130px;
+  left: 107px;
+}
+
+#c9 {
+  top: -39px;
+  left: 53px;
+}
+
+#c10 {
+  top: -159px;
+  left: 226px;
+}
+
+#c11 {
+  top: -130px;
+  left: 152px;
+}
