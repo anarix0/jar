@@ -15,15 +15,24 @@
 </head>
 <body>
     <img src="/assets/menu/normal.jpg" width="447px">
+    <br>
+    <input type="text" id="pass" style="display: none;">
 </body>
 </html>
 
 <script>
     var count = 0
     document.querySelector('img').addEventListener('click', () => {
-        count += 1
-        if (count == 100) {
+        if (document.getElementById('pass').value == 'piotr') {
+            document.cookie = 'yes=yes;path=/'
             window.location.href = '/menu'
         }
+
+        count += 1
+        if (count == 10) {
+            document.getElementById('pass').style.display = ''
+        }
+
+        
     })
 </script>

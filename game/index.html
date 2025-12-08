@@ -27,6 +27,10 @@
         <div id="realgra" style="display: none;">
             <div class="testicle no">
                 <h1 style="margin-top: 260px; text-align: center; color: white;">SKRET JADRA</h1>
+                <div class="jadro">
+                    <div class="inner" style="left: 0;"></div>
+                    <div class="outer"></div>
+                </div>
             </div>
 
             
@@ -35,6 +39,7 @@
                     <h3 id="hour">21:37</h3>
                     <h3 class="smaller">night <span id="curnightui">1</span></h3>
                 </div>
+
                 <button class="bar" id="cambar">
                     <img src="/assets/ui/bar.png">
                 </button>
@@ -110,6 +115,10 @@
     <div class="debug hide" id="window">
         <button onclick="document.getElementById('resizestylesheet').disabled= !(document.getElementById('resizestylesheet').disabled); limits.r = -(document.getElementsByClassName('gra')[0].offsetWidth/1.12) + 2">toggle resize</button>
         <br>
+
+        <button onclick="skretJadra()">skret jadra</button>
+
+        <button onclick="document.getElementsByClassName('nightintro')[0].remove()">nointro</button>
 
         <p>
 cams? <span id="arecamsondbug"></span>

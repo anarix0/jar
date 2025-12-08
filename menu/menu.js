@@ -42,6 +42,10 @@ if (getCookie('save') !== '') {
   document.getElementById('continue').classList.remove('hidden')
 }
 
+if (getCookie('yes') !== 'yes') {
+  window.location = '/'
+}
+
 function newgame() {
   document.cookie = 'save=1;path=/'
   document.getElementById('newspaper').classList.remove('hidden')

@@ -1,10 +1,8 @@
 
 // preload images
 
-console.log('preloading images')
-
 const preloaderImages = ['goldenfreddy.jpg',
-   'ui/bar.png', 'ui/map.png', 'ui/noise.png', 'rooms/placeholder.jpg', 'rooms/office.png',
+   'ui/bar.png', 'ui/map.png', 'ui/noise.png',
    'power/1.png', 'power/2.png', 'power/3.png', 'power/4.png',
    'door/closed.png', 'door/open.png', 'door/light.png',
    'jumpscares/0.gif','jumpscares/1.gif','jumpscares/2.png','jumpscares/3.gif',
@@ -12,13 +10,19 @@ const preloaderImages = ['goldenfreddy.jpg',
 
 var preloaderImageElement = new Image();
 
+var currentPreloadingImageCount = 0
+
 preloaderImages.forEach(e => {
+   console.log(`%cpreload%c %cimages%c [${currentPreloadingImageCount} / ${preloaderImages.length}]`,
+      'background-color: teal; border-radius: 12px; padding: 0 6px;',
+      '', 
+      'background-color: teal; border-radius: 12px; padding: 0 6px;'
+   )
    preloaderImageElement.src = '/assets/'+e
+   currentPreloadingImageCount += 1
 });
 
 // preload audio
-
-console.log('preloading audio')
 
 const preloaderAudios = [
    'ambient/1.ogg', 'ambient/2.ogg',
@@ -33,9 +37,47 @@ const preloaderAudios = [
 
 var preloaderAudioElement = new Audio();
 
+var currentPreloadingAudioCount = 0
+
 preloaderAudios.forEach(e => {
+   console.log(`%cpreload%c %caudio%c [${currentPreloadingAudioCount} / ${preloaderAudios.length}]`,
+      'background-color: teal; border-radius: 12px; padding: 0 6px;',
+      '', 
+      'background-color: teal; border-radius: 12px; padding: 0 6px;'
+   )
    preloaderAudioElement.src = '/assets/audio/'+e
+   currentPreloadingAudioCount += 1
 });
+
+// preload rooms
+
+const preloaderRooms = [
+   '0-0.jpg','0-1.jpg','0-2.jpg','0-3.jpg','0-8.jpg','0-9.jpg','0-10.jpg','0-11.jpg',
+   '1-0.jpg','1-1.jpg','1-2.jpg','1-3.jpg','1-4.jpg','1-5.jpg','1-6.jpg','1-7.jpg',
+   '2-0.jpg','2-1.jpg','2-2.jpg','2-3.jpg','2-4.jpg','2-5.jpg','2-6.jpg','2-7.jpg','2-8.jpg','2-9.jpg','2-10.jpg','2-11.jpg','2-12.jpg','2-13.jpg','2-14.jpg','2-15.jpg',
+   '3-0.jpg','3-8.jpg',
+   '4-0.jpg','4-1.jpg','4-2.jpg','4-3.jpg','4-8.jpg','4-9.jpg','4-10.jpg','4-11.jpg',
+   '5-0.jpg','5-1.jpg','5-2.jpg','5-3.jpg','5-8.jpg','5-9.jpg','5-10.jpg','5-11.jpg',
+   '6-0.jpg','6-1.jpg','6-2.jpg','6-3.jpg','6-4.jpg','6-5.jpg','6-6.jpg','6-7.jpg','6-8.jpg','6-9.jpg','6-10.jpg','6-11.jpg','6-12.jpg','6-13.jpg','6-14.jpg','6-15.jpg',
+   '7-0.jpg','7-1.jpg','7-2.jpg','7-3.jpg','7-4.jpg','7-5.jpg','7-6.jpg','7-7.jpg','7-8.jpg','7-9.jpg','7-10.jpg','7-11.jpg','7-12.jpg','7-13.jpg','7-14.jpg','7-15.jpg',
+   '8-0.jpg','8-4.jpg','8-8.jpg','8-12.jpg',
+   '9-0.jpg','9-1.jpg','9-2.jpg','9-3.jpg','9-4.jpg','9-5.jpg','9-6.jpg','9-7.jpg','9-8.jpg','9-9.jpg','9-10.jpg','9-11.jpg','9-12.jpg','9-13.jpg','9-14.jpg','9-15.jpg',
+   '10-0.jpg','10-1.jpg','10-2.jpg','10-3.jpg','10-4.jpg','10-5.jpg','10-6.jpg','10-7.jpg','10-8.jpg','10-9.jpg','10-10.jpg','10-11.jpg','10-12.jpg','10-13.jpg','10-14.jpg','10-15.jpg',
+]
+
+var preloaderRoomsElement = new Image();
+
+var currentPreloadingRoomsCount = 0
+
+preloaderRooms.forEach(e => {
+   console.log(`%cpreload%c %crooms%c [${currentPreloadingRoomsCount} / ${preloaderRooms.length}]`,
+      'background-color: teal; border-radius: 12px; padding: 0 6px;',
+      '', 
+      'background-color: teal; border-radius: 12px; padding: 0 6px;'
+   )
+   preloaderRoomsElement.src = '/assets/rooms/'+e
+   currentPreloadingRoomsCount += 1
+})
 
 var nightData = {
     'rooms' : {
@@ -55,6 +97,16 @@ var nightData = {
         'm':        {'current': [] , 'startpositions': []        ,'denied': [3]          , 'neighbours': ['m', 'mainhall'],                                        'hasCamera': false,}
     },
     'ai': []  // freddy, bonnie, kaspian pita, zajaczkowska
+}
+
+var doors = {
+   l: false,
+   r: false
+}
+
+var lights = {
+   l: false,
+   r: false
 }
 
 function getCookie(cname) {
@@ -94,6 +146,28 @@ switch (currentNight) {
 var ambientAudioVolume = 1;
 
 var currentAudios = [];
+
+var availableAudios = {}
+var availableAudioId = 0
+
+function addAudio(src) {
+   availableAudios[availableAudioId] = new Audio(src)
+
+   availableAudioId += 1
+
+   return availableAudioId-1
+}
+
+function playAudioId(audioid) {
+   console.log(availableAudios[audioid].src)
+   playAudio(availableAudios[audioid].src)
+}
+
+// function stopAudioSrc(src) {
+//    console.log(currentAudios)
+//    console.log(Array.from(availableAudios))
+//    Array.from(availableAudios).filter((e) => (e[1].src == src))[0].pause()
+// }
 
 function playAudio(src, type='ambient') {
    const audio = new Audio(src)
@@ -216,7 +290,16 @@ function mvTick() {
    nightData.ai.forEach(aiLevel => {
       switch (currentAi) {
          case 3:
-            if (Math.max(lastCameraOpen, lastCameraClose)+foxyStun >= Date.now()) {
+            if (
+                  (
+                  Math.max(lastCameraOpen, lastCameraClose)+foxyStun >= Date.now()
+                  &&
+                  !(['lhall', 'rhall'].includes(currentPositions[currentAi]))
+                  )
+               ||
+               iscameraon
+            
+            ) {
                return
             }
       }
@@ -245,79 +328,66 @@ function mvTick() {
          }
 
          if (newlocation == 'office') {
-            switch (currentAiRoom.neighbours[0]) {
-               case 'lhall':
-                  if (doors.l) {
-                     playAudio('/assets/audio/knock.ogg')
+            function doorKnock() {
+               playAudio('/assets/audio/knock.ogg')
 
-                     const removePerKnock = currentNight*2+hour
+               const removePerKnock = currentNight*2+hour
+               power -= removePerKnock
 
+               setTimeout(() => {
+                  power -= removePerKnock
+                  setTimeout(() => {
                      power -= removePerKnock
                      setTimeout(() => {
                         power -= removePerKnock
-                        setTimeout(() => {
-                           power -= removePerKnock
-                           setTimeout(() => {
-                              power -= removePerKnock
-                           }, 150);
-                        }, 150);
                      }, 150);
+                  }, 150);
+               }, 150);
 
-                     newlocation = startPositions[currentAi]
-                  } else {
-                     dead = true
-                     const jumpscare = document.getElementById('jumpscare')
-                     jumpscare.classList.remove('no')
-                     switch (currentAi.toString()) {
-                        case '0':
-                           jumpscare.src = '/assets/jumpscares/0.gif'
-                           death()
-                           break
-                        case '1':
-                           jumpscare.src = '/assets/jumpscares/1.gif'
-                           death()
-                           break
-                        case '2':
-                           jumpscare.src = '/assets/jumpscares/2.png'
-                           playAudio('/assets/audio/jumpscare/2.ogg')
+               newlocation = startPositions[currentAi]
+            }
 
-                           setTimeout(() => {
-                              death()  
-                           }, 10000);
-                           
-                           break
-                        case '3':
-                           jumpscare.src = '/assets/jumpscares/3.gif'
-                           playAudio('/assets/audio/jumpscare/3.mp3')
-
-                           death()
-                     }
-                  }
-                  break
-               case 'rhall':
-                  if (doors.r) {
-                     playAudio('/assets/audio/knock.ogg')
-
-                     const removePerKnock = currentNight*2+hour
-
-                     power -= removePerKnock
-                     setTimeout(() => {
-                        power -= removePerKnock
-                        setTimeout(() => {
-                           power -= removePerKnock
-                           setTimeout(() => {
-                              power -= removePerKnock
-                           }, 150);
-                        }, 150);
-                     }, 150);
-                     
-                     newlocation = startPositions[currentAi]
-                  } else {
-                     dead = true
+            function jumpscarefunc() {
+               dead = true
+               const jumpscare = document.getElementById('jumpscare')
+               jumpscare.classList.remove('no')
+               console.log('dead', currentAi.toString())
+               switch (currentAi.toString()) {
+                  case '0':
+                     jumpscare.src = '/assets/jumpscares/0.gif'
+                     playAudio('/assets/audio/bgm.mp3')
                      death()
-                     // jumpscare
-                     // window.location.href = '/menu'
-                  }
+                     break
+                  case '1':
+                     jumpscare.src = '/assets/jumpscares/1.gif'
+                     setTimeout(() => {
+                        playAudio('/assets/audio/jumpscare/3.mp3')
+                        death()
+                     }, 3000);
+                     break
+                  case '2':
+                     jumpscare.src = '/assets/jumpscares/2.png'
+                     playAudio('/assets/audio/jumpscare/2.ogg')
+                     setTimeout(() => {
+                        death()  
+                     }, 10000);
+                     
+                     break
+                  case '3':
+                     jumpscare.src = '/assets/jumpscares/3.gif'
+                     playAudio('/assets/audio/jumpscare/3.mp3')
+                     death()
+               }
+            }
+
+            if (nightData.rooms.office.current.length != 0) {
+               switch (currentAiRoom.neighbours[0]) {
+                  case 'lhall':
+                     doors.l ? doorKnock() : jumpscarefunc()
+                     break
+                  case 'rhall':
+                     doors.r ? doorKnock() : jumpscarefunc()
+               }
             }
          }
 
@@ -444,7 +514,22 @@ function powerHandler() {
       currentpowercountdown += 1
    }
 
-   if (power < -10000) {
+   var trueUsage = 1
+
+   trueUsage += Object.values(doors).filter(e=>(e)).length
+   trueUsage += Object.values(lights).filter(e=>(e)).length
+   trueUsage += iscameraon ? 1 : 0
+
+   if (Object.values(doors).filter(e=>(e)).length == 0 && Object.values(lights).filter(e=>(e)).length == 0 && !iscameraon) {
+      if (trueUsage < usage) {
+         doubleDoorUsage = false
+         console.log('assuming double door usage')
+         usage = trueUsage
+      }
+   }
+
+
+   if (power < 0) {
       document.getElementsByClassName('static')[0].classList.remove('hide')
 
       document.getElementById('powerdbug').innerHTML = "<img src='/assets/goldenfreddy.jpg'>"
@@ -521,6 +606,8 @@ incrementhour();
 var withTesticularTorsion = false;
 var wezMiKurwaWylaczTenJebanyKrzykBoJaKurwaSieBoje = false;
 
+const jadroAudio = addAudio('/assets/audio/stalker.mp3')
+
 function skretJadra() {
 
    withTesticularTorsion = true
@@ -528,21 +615,61 @@ function skretJadra() {
    document.getElementsByClassName('testicle')[0].classList.remove('no')
 
    if (!wezMiKurwaWylaczTenJebanyKrzykBoJaKurwaSieBoje) {
-      playAudio('/assets/audio/stalker.mp3')
-
-      setTimeout(() => {
-         playAudio('/assets/audio/stalker.mp3')
-
-         setTimeout(() => {
-            playAudio('/assets/audio/stalker.mp3')
-         }, 2000);
-      }, 2000);
+      (function scream() {
+         if (!withTesticularTorsion) { 
+            stopAudioSrc('/assets/audio/stalker.mp3')
+            power -= 7
+            return
+         } 
+         playAudioId(jadroAudio)
+         setTimeout(() => { scream() }, 2000);
+      })();
    }
 
+   var inner = document.getElementsByClassName('inner')[0].style
+
+   var offset = 0;
+   var amount = 5;
+
+   function refresh(offset) {
+       inner.left = `${offset}px`
+
+       console.log(offset)
+       if (Math.abs(offset) < 6) {
+           setTimeout(() => {
+               console.log(offset)
+               if (Math.abs(offset) < 6) {
+                  document.getElementsByClassName('testicle')[0].classList.add('no')
+                  withTesticularTorsion = false
+               }
+           }, 1000);
+       }
+   }
+
+   refresh()
+
+   document.addEventListener('keydown', (e) => {
+       if (e.key == 'a') {
+           offset -= amount
+       }
+
+       if (e.key == 'd') {
+           offset += amount
+       }
+       offset = Math.round(offset)
+       console.log(offset)
+       refresh(offset)
+   });
+
    setTimeout(() => {
-      withTesticularTorsion = false
-      document.getElementsByClassName('testicle')[0].classList.add('no')
-   }, 6000+Math.random()*1000);
+      (function a(){
+           offset = (Math.random()- (.5-(offset/100)) )*100
+           refresh(offset)
+           setTimeout(() => {
+               a()
+           }, 2000);
+       })(); 
+   }, 0);
 }
 
 
@@ -570,8 +697,6 @@ function cammove() {
    }
 
    var width = document.getElementsByClassName('gra')[0].offsetWidth
-
-   console.log(width)
 
    var rotation_speed = 0.0125*width
 
@@ -688,7 +813,6 @@ if (skipIntro) {
 }
 
 
-// nigga
 // piotr jest gejem - fejkus
 // 
 
@@ -704,13 +828,13 @@ setTimeout(() => {
 setTimeout(() => {
    (function a(){
       if (won) {return}
-      if (Math.round(Math.random()*100) == 67) {
+      if (Math.round(Math.random()*100) == 67 && !withTesticularTorsion) {
          skretJadra()
       }
 
       setTimeout(() => {
          a()
-      }, 1000);
+      }, 1500);
    })();
 }, 15000);
 
@@ -731,10 +855,13 @@ const doorOpenR = new Audio('/assets/audio/door-open-r.ogg')
 const doorCloseL = new Audio('/assets/audio/door-close-l.ogg')
 const doorCloseR = new Audio('/assets/audio/door-close-r.ogg')
 
-var doors = {
-   l: false,
-   r: false
-}
+var lastDoorLClose = 0;
+var lastDoorRClose = 0;
+var lastDoorLOpen  = 0;
+var lastDoorROpen  = 0;
+
+var doubleDoorUsage = false;
+
 
 function door(doorn) {
 
@@ -752,10 +879,14 @@ function door(doorn) {
          ldoor.src = doors.l ? closed : open
 
          if (doors.l) {
+            lastDoorLClose = Date.now()
+
             doorCloseL.play()
             doorOpenL.pause()
             doorOpenL.currentTime = 0
          } else {
+            lastDoorLOpen = Date.now()
+
             doorOpenL.play()
             doorCloseL.pause()
             doorCloseL.currentTime = 0
@@ -769,10 +900,14 @@ function door(doorn) {
          rdoor.src = doors.r ? closed : open
 
          if (doors.r) {
+            lastDoorRClose = Date.now()
+
             doorCloseR.play()
             doorOpenR.pause()
             doorOpenR.currentTime = 0
          } else {
+            lastDoorROpen = Date.now()
+
             doorOpenR.play()
             doorCloseR.pause()
             doorCloseR.currentTime = 0
@@ -784,10 +919,24 @@ function door(doorn) {
    document.getElementById('doorsdbug').innerText = `${doors.l}  ${doors.r}`
 }
 
-var lights = {
-   l: false,
-   r: false
+function checkDoor() {
+   if (
+      (( doors.l && lastDoorLClose+(Math.random()*30+15)*1000 < Date.now() )
+      ||
+      ( doors.r && lastDoorRClose+(Math.random()*30+15)*1000 < Date.now() ))
+      && 
+      !doubleDoorUsage
+   ) {
+      doubleDoorUsage = true
+      usage += Object.values(doors).filter(e=>(e)).length
+   }
+
+   setTimeout(() => {
+      checkDoor()
+   }, 1000);
 }
+
+checkDoor()
 
 const lightAudioL = new Audio('/assets/audio/light-l.ogg')
 const lightAudioR = new Audio('/assets/audio/light-r.ogg')
