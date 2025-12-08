@@ -681,7 +681,7 @@ if (firstgame) {
    }, 50);
 }
 
-var skipIntro = true;
+var skipIntro = false;
 
 if (skipIntro) {
    document.getElementById('realgra').style.display = ''
