@@ -1,8 +1,8 @@
-name: Deploy Static Site (Minified)
+name: Deploy Minified
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 permissions:
   contents: write
