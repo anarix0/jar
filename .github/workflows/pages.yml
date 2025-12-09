@@ -46,15 +46,6 @@ jobs:
           find . -name "*.js" -type f -print0 \
             | xargs -0 -I {} sh -c 'terser {} -o {} --compress --mangle'
 
-      - name: Optimize images
-        run: |
-          imagemin "**/*.{jpg,jpeg,png,svg,webp}" \
-            --plugin=mozjpeg \
-            --plugin=pngquant \
-            --plugin=svgo \
-            --plugin=webp \
-            --out-dir="."
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

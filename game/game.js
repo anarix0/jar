@@ -1,10 +1,14 @@
 
+const classicPreload = false;
+
 // preload images
 
 const preloaderImages = ['goldenfreddy.jpg',
    'ui/bar.png', 'ui/map.png', 'ui/noise.png',
    'power/1.png', 'power/2.png', 'power/3.png', 'power/4.png',
    'door/closed.png', 'door/open.png', 'door/light.png',
+   'door/00.png', 'door/01.png', 'door/10.png', 'door/11.png',
+   'door/20.png', 'door/21.png', 'door/30.png', 'door/31.png',
    'jumpscares/0.gif','jumpscares/1.gif','jumpscares/2.png','jumpscares/3.gif',
 ]
 
@@ -18,7 +22,11 @@ preloaderImages.forEach(e => {
       '', 
       'background-color: teal; border-radius: 12px; padding: 0 6px;'
    )
-   preloaderImageElement.src = '/assets/'+e
+   if (classicPreload) {
+      preloaderImageElement.src = '/assets/'+e
+   } else {
+      fetch('/assets/'+e)
+   }
    currentPreloadingImageCount += 1
 });
 
@@ -31,7 +39,7 @@ const preloaderAudios = [
    'door-open-l.ogg', 'door-open-r.ogg',
    'end.ogg', 'knock.ogg',
    'light-l.ogg', 'light-r.ogg',
-   'movement.ogg', 'jumpscare/2.ogg', 'jumpscare/3.ogg',
+   'movement.ogg', 'jumpscare/2.ogg', 'jumpscare/3.mp3',
    'stalker.mp3', 'static.ogg'
 ]
 
@@ -45,24 +53,28 @@ preloaderAudios.forEach(e => {
       '', 
       'background-color: teal; border-radius: 12px; padding: 0 6px;'
    )
-   preloaderAudioElement.src = '/assets/audio/'+e
+   if (classicPreload) {
+      preloaderAudioElement.src = '/assets/audio/'+e
+   } else {
+      fetch('/assets/audio/'+e)
+   }
    currentPreloadingAudioCount += 1
 });
 
 // preload rooms
 
 const preloaderRooms = [
-   '0-0.jpg','0-1.jpg','0-2.jpg','0-3.jpg','0-8.jpg','0-9.jpg','0-10.jpg','0-11.jpg',
-   '1-0.jpg','1-1.jpg','1-2.jpg','1-3.jpg','1-4.jpg','1-5.jpg','1-6.jpg','1-7.jpg',
-   '2-0.jpg','2-1.jpg','2-2.jpg','2-3.jpg','2-4.jpg','2-5.jpg','2-6.jpg','2-7.jpg','2-8.jpg','2-9.jpg','2-10.jpg','2-11.jpg','2-12.jpg','2-13.jpg','2-14.jpg','2-15.jpg',
-   '3-0.jpg','3-8.jpg',
-   '4-0.jpg','4-1.jpg','4-2.jpg','4-3.jpg','4-8.jpg','4-9.jpg','4-10.jpg','4-11.jpg',
-   '5-0.jpg','5-1.jpg','5-2.jpg','5-3.jpg','5-8.jpg','5-9.jpg','5-10.jpg','5-11.jpg',
-   '6-0.jpg','6-1.jpg','6-2.jpg','6-3.jpg','6-4.jpg','6-5.jpg','6-6.jpg','6-7.jpg','6-8.jpg','6-9.jpg','6-10.jpg','6-11.jpg','6-12.jpg','6-13.jpg','6-14.jpg','6-15.jpg',
-   '7-0.jpg','7-1.jpg','7-2.jpg','7-3.jpg','7-4.jpg','7-5.jpg','7-6.jpg','7-7.jpg','7-8.jpg','7-9.jpg','7-10.jpg','7-11.jpg','7-12.jpg','7-13.jpg','7-14.jpg','7-15.jpg',
-   '8-0.jpg','8-4.jpg','8-8.jpg','8-12.jpg',
-   '9-0.jpg','9-1.jpg','9-2.jpg','9-3.jpg','9-4.jpg','9-5.jpg','9-6.jpg','9-7.jpg','9-8.jpg','9-9.jpg','9-10.jpg','9-11.jpg','9-12.jpg','9-13.jpg','9-14.jpg','9-15.jpg',
-   '10-0.jpg','10-1.jpg','10-2.jpg','10-3.jpg','10-4.jpg','10-5.jpg','10-6.jpg','10-7.jpg','10-8.jpg','10-9.jpg','10-10.jpg','10-11.jpg','10-12.jpg','10-13.jpg','10-14.jpg','10-15.jpg',
+   '0-0.webp','0-1.webp','0-2.webp','0-3.webp','0-8.webp','0-9.webp','0-10.webp','0-11.webp',
+   '1-0.webp','1-1.webp','1-2.webp','1-3.webp','1-4.webp','1-5.webp','1-6.webp','1-7.webp',
+   '2-0.webp','2-1.webp','2-2.webp','2-3.webp','2-4.webp','2-5.webp','2-6.webp','2-7.webp','2-8.webp','2-9.webp','2-10.webp','2-11.webp','2-12.webp','2-13.webp','2-14.webp','2-15.webp',
+   '3-0.webp','3-8.webp',
+   '4-0.webp','4-1.webp','4-2.webp','4-3.webp','4-8.webp','4-9.webp','4-10.webp','4-11.webp',
+   '5-0.webp','5-1.webp','5-2.webp','5-3.webp','5-8.webp','5-9.webp','5-10.webp','5-11.webp',
+   '6-0.webp','6-1.webp','6-2.webp','6-3.webp','6-4.webp','6-5.webp','6-6.webp','6-7.webp','6-8.webp','6-9.webp','6-10.webp','6-11.webp','6-12.webp','6-13.webp','6-14.webp','6-15.webp',
+   '7-0.webp','7-1.webp','7-2.webp','7-3.webp','7-4.webp','7-5.webp','7-6.webp','7-7.webp','7-8.webp','7-9.webp','7-10.webp','7-11.webp','7-12.webp','7-13.webp','7-14.webp','7-15.webp',
+   '8-0.webp','8-4.webp','8-8.webp','8-12.webp',
+   '9-0.webp','9-1.webp','9-2.webp','9-3.webp','9-4.webp','9-5.webp','9-6.webp','9-7.webp','9-8.webp','9-9.webp','9-10.webp','9-11.webp','9-12.webp','9-13.webp','9-14.webp','9-15.webp',
+   '10-0.webp','10-1.webp','10-2.webp','10-3.webp','10-4.webp','10-5.webp','10-6.webp','10-7.webp','10-8.webp','10-9.webp','10-10.webp','10-11.webp','10-12.webp','10-13.webp','10-14.webp','10-15.webp',
 ]
 
 var preloaderRoomsElement = new Image();
@@ -75,7 +87,15 @@ preloaderRooms.forEach(e => {
       '', 
       'background-color: teal; border-radius: 12px; padding: 0 6px;'
    )
-   preloaderRoomsElement.src = '/assets/rooms/'+e
+   if (classicPreload) {
+      preloaderRoomsElement.src = '/assets/rooms/'+e
+   } else {
+      fetch('/assets/rooms/'+e)
+   //   .then(r => r.blob())
+   //   .then(() => {
+   //       currentPreloadingRoomsCount += 1
+   //   });
+   }
    currentPreloadingRoomsCount += 1
 })
 
@@ -168,30 +188,53 @@ function playAudioId(audioid) {
 //    console.log(Array.from(availableAudios))
 //    Array.from(availableAudios).filter((e) => (e[1].src == src))[0].pause()
 // }
+const ctx = new AudioContext();
+
+let source;
+let gainNode = ctx.createGain();
+gainNode.connect(ctx.destination);
 
 function playAudio(src, type='ambient') {
-   const audio = new Audio(src)
-   
-   if (type = 'ambient') {
-      audio.volume = ambientAudioVolume
-   }
 
-   currentAudios.push(audio)
+   fetch(src)
+     .then(r => r.arrayBuffer())
+     .then(buf => ctx.decodeAudioData(buf))
+     .then(decoded => {
+      const src = ctx.createBufferSource();
 
-   audio.addEventListener('ended', () => {
-      const index = currentAudios.indexOf(audio)
-      currentAudios.splice(index, 1)
-   })
+      src.buffer = decoded;
+      src.connect(gainNode);
+      src.start(0);
 
-   audio.play()
+      src.addEventListener('ended', () => {
+         const index = currentAudios.indexOf(audio)
+         currentAudios.splice(index, 1)
+      })
+     });
+
+   // const audio = new Audio(src)
+   // 
+   // if (type = 'ambient') {
+      // audio.volume = ambientAudioVolume
+   // }
+// 
+   // currentAudios.push(audio)
+// 
+   // audio.addEventListener('ended', () => {
+      // const index = currentAudios.indexOf(audio)
+      // currentAudios.splice(index, 1)
+   // })
+// 
+   // audio.play()
 }
 
 function changeVolume(volumeLvl, type='ambient') {
-   ambientAudioVolume = volumeLvl
-
-   currentAudios.forEach(audio => {
-      audio.volume = volumeLvl;
-   });
+   gainNode.gain.level = volumeLvl
+   // ambientAudioVolume = volumeLvl
+// 
+   // currentAudios.forEach(audio => {
+      // audio.volume = volumeLvl;
+   // });
 }
 
 
@@ -1053,16 +1096,26 @@ function checklight(doorn) {
    document.getElementById('lightdbug').innerText = `${lights.l}  ${lights.r}`
 }
 
+const cameraNames = {
+   0: 'Right Hall',
+   1: 'Stage',
+   2: 'Party Room 2',
+   3: 'Pirate Cove',
+   4: 'Party Room 1',
+   5: 'Entrance',
+   6: 'Saferoom',
+   7: 'Main Hall',
+   8: 'Left Hall',
+   9: 'Dining',
+   10: 'Dining',
+}
 
 function switchCamera(num) {
-   if (won) {return}
-   var switchAudio = new Audio('/assets/audio/camera-switch.ogg')
-   if (!iscameraon) { switchAudio.volume = 0}
-   switchAudio.play()
-   document.getElementsByClassName('static')[0].classList.add('high')
+   if (won) return
+
    currentCamera = num
    num = num - 1
-   document.getElementById('gamemapcurrentcameraname').innerText = num
+   document.getElementById('gamemapcurrentcameraname').innerText = cameraNames[num].toUpperCase()
 
    var roomsWithCameras = Object.entries(nightData.rooms).filter((e) => (e[1].hasCamera))
    
@@ -1078,7 +1131,14 @@ function switchCamera(num) {
 
    console.log(roomData[0], 'sum', sumOfAnim)
 
-   document.getElementsByClassName('cam')[0].src = `/assets/rooms/${num}-${sumOfAnim}.jpg`
+   if (!document.getElementsByClassName('cam')[0].src.endsWith(`/assets/rooms/${num}-${sumOfAnim}.webp`)) {
+      if (iscameraon) { new Audio('/assets/audio/camera-switch.ogg').play() }
+      document.getElementsByClassName('static')[0].classList.add('high')
+      document.getElementsByClassName('cam')[0].src = `/assets/rooms/${num}-${sumOfAnim}.webp`
+
+   }
+
+
    setTimeout(() => {
       document.getElementsByClassName('static')[0].classList.remove('high')
    }, 100);

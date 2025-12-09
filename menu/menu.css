@@ -119,7 +119,7 @@ h1 {
   top: 0;
   z-index: 3;
   will-change: opacity;
-  transition: 3s linear;
+  transition: opacity 3s linear;
   filter: brightness(.7);
 }
 
