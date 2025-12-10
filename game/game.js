@@ -148,13 +148,13 @@ function getCookie(cname) {
 const currentNight = getCookie('save')
 
 switch (currentNight) {
-   case 1:
+   case '1':
       nightData.ai = [2,2,2,2]
       break
-   case 2:
+   case '2':
       nightData.ai = [2,2,2,2]
       break
-   case 3:
+   case '3':
       nightData.ai = [2,2,2,2]
       break
    default:
@@ -395,20 +395,21 @@ function mvTick() {
                const jumpscare = document.getElementById('jumpscare')
                jumpscare.classList.remove('no')
                console.log('dead', currentAi.toString())
-               switch (currentAi.toString()) {
-                  case '0':
+
+               switch (currentAi) {
+                  case 0:
                      jumpscare.src = '/assets/jumpscares/0.gif'
                      playAudio('/assets/audio/bgm.mp3')
                      death()
                      break
-                  case '1':
+                  case 1:
                      jumpscare.src = '/assets/jumpscares/1.gif'
                      setTimeout(() => {
                         playAudio('/assets/audio/jumpscare/3.mp3')
                         death()
                      }, 3000);
                      break
-                  case '2':
+                  case 2:
                      jumpscare.src = '/assets/jumpscares/2.png'
                      playAudio('/assets/audio/jumpscare/2.ogg')
                      setTimeout(() => {
@@ -416,20 +417,29 @@ function mvTick() {
                      }, 10000);
                      
                      break
-                  case '3':
+                  case 3:
                      jumpscare.src = '/assets/jumpscares/3.gif'
                      playAudio('/assets/audio/jumpscare/3.mp3')
                      death()
+                     break
                }
             }
 
-            if (nightData.rooms.office.current.length != 0) {
+            if (nightData.rooms.office.current.length == 0) {
                switch (currentAiRoom.neighbours[0]) {
                   case 'lhall':
-                     doors.l ? doorKnock() : jumpscarefunc()
+                     if (doors.l) {
+                        doorKnock()
+                     } else {
+                        jumpscarefunc()
+                     }
                      break
                   case 'rhall':
-                     doors.r ? doorKnock() : jumpscarefunc()
+                     if (doors.r) {
+                        doorKnock()
+                     } else {
+                        jumpscarefunc()
+                     }
                }
             }
          }
@@ -453,13 +463,13 @@ function mvTick() {
    });
 
    const ticktimeDbug = document.getElementById('ticktimedbug')
-   ticktimeDbug.innerHTML =  4500 - (hour * 200)
+   ticktimeDbug.innerHTML =  (4500 - (hour * 200)) / (quickBots ? 10 : 1)
 
    checkForAmbient()
 
    setTimeout(() => {
       mvTick()
-   }, 4500 - (hour * 200) );
+   }, (4500 - (hour * 200)) / (quickBots ? 10 : 1) )
 }
 
 const instantMvTick = false
@@ -545,6 +555,8 @@ function death() {
 var power = 1005;
 var usage = 1;
 
+var quickBots = false
+
 var currentpowercountdown = 0;
 
 function powerHandler() {
@@ -571,34 +583,20 @@ function powerHandler() {
       }
    }
 
-
    if (power < 0) {
-      document.getElementsByClassName('static')[0].classList.remove('hide')
+      document.getElementsByClassName('camui')[0].style.display = 'none'
+      document.getElementById('cambar').remove()
 
-      document.getElementById('powerdbug').innerHTML = "<img src='/assets/goldenfreddy.jpg'>"
-      document.getElementById('usagedbug').innerHTML = "<img src='/assets/goldenfreddy.jpg'>"
+      document.getElementsByClassName('doors')[0].style.display = 'none'
 
-      document.getElementById('powerui').innerHTML = "-21312312312"
-      document.getElementById('usageui').innerHTML = "-21312312312"
+      document.getElementsByClassName('bg')[0].style.filter = 'brightness(.5)'
 
+      doors  = {'l': false, 'r': false}
+      lights = {'l': false, 'r': false}
 
-      setTimeout(() => {
-         document.getElementById('newspaper').classList.add('animless')
-         document.getElementById('newspaper').src = '/assets/goldenfreddy.jpg'
-      }, 1700);
+      quickBots = true
 
-      document.getElementsByClassName('camui')[0].remove()
-      // document.getElementsByClassName('ui')[0].remove()
-
-      playAudio('/assets/audio/bgm.mp3')
-
-      setTimeout(() => {
-         window.location.href = '/menu'
-      }, 21000);
-      
-
-      return
-
+      nightData.ai = [20, 20, 20, 20]
    }
 
    document.getElementById('powerdbug').innerHTML = power
@@ -964,9 +962,9 @@ function door(doorn) {
 
 function checkDoor() {
    if (
-      (( doors.l && lastDoorLClose+(Math.random()*30+15)*1000 < Date.now() )
+      (( doors.l && lastDoorLClose+(Math.random()*30+9)*1000 < Date.now() )
       ||
-      ( doors.r && lastDoorRClose+(Math.random()*30+15)*1000 < Date.now() ))
+      ( doors.r && lastDoorRClose+(Math.random()*30+9)*1000 < Date.now() ))
       && 
       !doubleDoorUsage
    ) {
