@@ -99,3 +99,9 @@ function glitch() {
 }
 
 glitch()
+
+fetch('/version.json')
+.then(r => r.json())
+.then(info => {
+  document.getElementById('github_commit_hash').textContent = info.commit.substring(0, 7)
+});
