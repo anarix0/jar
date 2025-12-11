@@ -47,7 +47,6 @@ jobs:
             terser "$file" \
               --compress \
               --mangle \
-              --source-map "content=inline" \
               --source-map "url=$(basename "$file").map" \
               -o "$file"
           done
