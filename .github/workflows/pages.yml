@@ -47,8 +47,7 @@ jobs:
             terser "$file" \
               --compress \
               --mangle \
-              --source-map "root='/'" \
-              --source-map "url='$file.map'" \
+              --source-map "url='.$file.map'" \
               -o "$file"
           done
 
