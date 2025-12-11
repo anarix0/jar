@@ -39,7 +39,7 @@ jobs:
       - name: Minify CSS
         run: |
           find . -name "*.css" -type f -print0 \
-            | xargs -0 -I {} sh -c 'cleancss -o {} {}'
+            | xargs -0 -I {} sh -c 'cleancss -O2 --source-map -o {} {}'
 
       - name: Minify JavaScript
         run: |
@@ -47,10 +47,9 @@ jobs:
             terser "$file" \
               --compress \
               --mangle \
-              --source-map "url='.$file.map'" \
+              --source-map "url='/$file.map'" \
               -o "$file"
           done
-
       
       - name: Create deploy metadata
         run: |
