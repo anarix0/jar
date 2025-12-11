@@ -8,15 +8,24 @@
 
     <link rel="shortcut icon" type="image/svg+xml" href="/assets/ico/favicon.svg" type="image/x-icon">
 
+    <link rel="manifest" href="manifest.json">
+
     <title>five jars in piotr</title>
 </head>
 <body>
-
-
     <!-- <audio src="/assets/audio/bgm.mp3" autoplay controls></audio> -->
     
 
     <div class="gra">
+
+        <!-- <div class="fullscreentoggle">
+            <button onclick="if (!document.fullscreenElement) {document.getElementsByClassName('gra')[0].requestFullscreen(); document.getElementById('redo').style.display = 'none'; document.getElementById('undo').style.display = 'inherit'} else {document.exitFullscreen(); document.getElementById('redo').style.display = 'inherit'; document.getElementById('undo').style.display = 'none'} ">
+                <svg data-slot="icon" aria-hidden="true" fill="none" stroke-width="2.5" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path id="redo" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path id="undo" style="display: none;" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div> -->
 
         <div class="warn">
             <div class="warnhold">
@@ -47,7 +56,7 @@
 
         <div class="footer">
             <p>v 0.967</p>
-            <p>copyright diamond dih 1991</p>
+            <p onclick="window.open('https\:\/\/2faa.cc/')">copyright diamond dih 1991</p>
         </div>
 
         <img src="/assets/gazeta.png" id="newspaper" class="hidden">
@@ -73,3 +82,4 @@
 
 <script src="menu.js"></script>
 <script src="/window.js"></script>
+<script src="/mobile.js"></script>

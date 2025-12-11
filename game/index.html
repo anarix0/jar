@@ -6,12 +6,18 @@
     <link rel="stylesheet" href="game.css">
     <link rel="stylesheet" href="resize.css" id="resizestylesheet">
 
+    <link rel="preload" href="/assets/loader.gif">
+
     <link rel="shortcut icon" type="image/svg+xml" href="/assets/ico/favicon.svg" type="image/x-icon">
 
     <title>five jars in piotr</title>
 </head>
 <body>
     <div class="gra">
+        <div id="loader">
+            <img src="/assets/loader.gif" width="50px" height="100px" style="position: absolute; margin: 50px; bottom: 0; right: 0; z-index: 15;">
+        </div>
+
         <img id="jumpscare" src="/assets/jumpscares/blank.jpg" class="jumpscare no">
 
         <div class="static">
@@ -25,11 +31,18 @@
         </div>
 
         <div id="realgra" style="display: none;">
+            <!-- TODO: mobile support -->
             <div class="testicle no">
-                <h1 style="margin-top: 260px; text-align: center; color: white; font-family: 'Comic Sans MS';">SKRET JADRA</h1>
-                <div class="jadro">
-                    <div class="inner" style="left: 0;"></div>
-                    <div class="outer"></div>
+                <div class="testiclehold">
+                    <h1 style="text-align: center; color: white; font-family: 'Comic Sans MS'; margin: 0;">SKRET JADRA</h1>
+                    <div class="jadro">
+                        <div class="inner" style="left: 0;"></div>
+                        <div class="outer"></div>
+                    </div>
+                    <div class="testiclemobile no">
+                        <button id="testicle-mv-left">&lt;</button>
+                        <button id="testicle-mv-right">&gt;</button>
+                    </div>
                 </div>
             </div>
 
@@ -147,3 +160,4 @@ data <span id="nightdatadbug">no mvtick yet</span>
 
 <script src="game.js"></script>
 <script src="/window.js"></script>
+<script src="/mobile.js"></script>
