@@ -43,8 +43,13 @@ jobs:
 
       - name: Minify JavaScript
         run: |
-          find . -name "*.js" -type f -print0 \
-            | xargs -0 -I {} sh -c 'terser {} -o {} --compress --mangle'
+          find . -name "*.js" -type f -print0 | while IFS= read -r -d '' file; do
+            terser "$file" \
+              --compress \
+              --mangle \
+              --source-map "content=inline,url=${file}.map" \
+              -o "$file"
+          done
       
       - name: Create deploy metadata
         run: |
