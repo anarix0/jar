@@ -367,7 +367,7 @@ function mvTick() {
          case 3:
             if (
                   (
-                  Math.max(lastCameraOpen, lastCameraClose)+foxyStun >= Date.now()
+                  lastCameraClose+foxyStun >= Date.now()
                   &&
                   !(['lhall', 'rhall'].includes(currentPositions[currentAi]))
                   )
@@ -605,7 +605,7 @@ function powerHandler() {
 
    trueUsage += Object.values(doors).filter(e=>(e)).length
    trueUsage += Object.values(lights).filter(e=>(e)).length
-   trueUsage += iscameraon ? 1 : 0
+   trueUsage += iscameraon ? 2 : 0
 
    if (Object.values(doors).filter(e=>(e)).length == 0 && Object.values(lights).filter(e=>(e)).length == 0 && !iscameraon) {
       if (trueUsage < usage) {
@@ -677,7 +677,7 @@ incrementhour();
 
 
 var withTesticularTorsion = false;
-var wezMiKurwaWylaczTenJebanyKrzykBoJaKurwaSieBoje = true;
+var wezMiKurwaWylaczTenJebanyKrzykBoJaKurwaSieBoje = false;
 
 const jadroAudio = addAudio('/assets/audio/stalker.mp3')
 
@@ -1202,12 +1202,11 @@ function switchCamera(num) {
 
 const bar = document.getElementById('cambar')
 
-var lastCameraOpen = 0;
 var lastCameraClose = 0;
 
 var foxyStun = (Math.random()*17+.8)*1000
 
-bar.addEventListener('mouseenter', function(){
+function cameraSwitch() {
    if (won) {return}
 
    document.getElementsByClassName('static')[0].classList.add('notrans') 
@@ -1217,9 +1216,6 @@ bar.addEventListener('mouseenter', function(){
    if (iscameraon) {
       changeVolume(.1)
 
-      lastCameraOpen = Date.now()
-      foxyStun = (Math.random()*17+.8)*1000
-
       document.getElementsByClassName('cameracontrols')[0].style.display = 'none'
       document.getElementsByClassName('room')[0].style.display = 'none'
 
@@ -1228,7 +1224,7 @@ bar.addEventListener('mouseenter', function(){
       document.getElementsByClassName('camui')[0].style.display = 'inherit'
       document.getElementsByClassName('cam')[0].style.opacity = 1
       document.getElementsByClassName('cam')[0].style.zIndex = 3
-      usage += 1
+      usage += 2
    } else {
       changeVolume(1)
 
@@ -1243,12 +1239,14 @@ bar.addEventListener('mouseenter', function(){
       document.getElementsByClassName('camui')[0].style.display = 'none'
       document.getElementsByClassName('cam')[0].style.opacity = 0
       document.getElementsByClassName('cam')[0].style.zIndex = -2
-      usage -= 1
+      usage -= 2
    }
-   
-   bar.style.opacity = 0
+   if (!mobilecheck) bar.style.opacity = 0
    document.getElementById('arecamsondbug').innerText = iscameraon ? "yes" : "no"
-})
+}
+
+bar.addEventListener('mouseenter', cameraSwitch)
+bar.addEventListener('click', cameraSwitch)
 
 bar.addEventListener('mouseleave', function(){
    if (won) {return}

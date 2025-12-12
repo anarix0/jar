@@ -14,6 +14,13 @@
 </head>
 <body>
     <!-- <audio src="/assets/audio/bgm.mp3" autoplay controls></audio> -->
+
+    <div class="rotate">
+        <h2>Please rotate your screen</h2>
+        <svg data-slot="icon" aria-hidden="true" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </div>
     
 
     <div class="gra">
@@ -30,8 +37,9 @@
         <div class="warn">
             <div class="warnhold">
                 <h3>WARNING!</h3>
-                <h3 id="warningtext"><span>This</span> <span>game</span> <span>contains</span> <span>flashing</span> <span>lights</span>, <span>loud</span> <br>
-<span>noises</span>, <span>and</span> <span>lots</span> <span>of</span> <span>jumpscares!</span>
+                <h3 id="warningtext">
+                    <span>This</span> <span>game</span> <span>contains</span> <span>flashing</span> <span>lights</span>, <span>loud</span> <br>
+                    <span>noises</span>, <span>and</span> <span>lots</span> <span>of</span> <span>jumpscares!</span>
                 </h3>
             </div>
         </div>
@@ -55,8 +63,8 @@
         </div>
 
         <div class="footer">
-            <p>v <span id="github_commit_hash">0.967</span></p>
-            <p onclick="window.open('https\:\/\/2faa.cc/')">copyright diamond dih 1991</p>
+            <p onclick="window.open('https:/\/github.com/anarix0/jar')">v <span id="github_commit_hash">developement</span></p>
+            <p onclick="window.open('https:/\/2faa.cc/')">copyright diamond dih 1991</p>
         </div>
 
         <img src="/assets/gazeta.png" id="newspaper" class="hidden">

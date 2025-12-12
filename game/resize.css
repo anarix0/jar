@@ -130,3 +130,24 @@ body {
 .debug {
   background-color: red;
 }
+
+.door button.l {
+  position: absolute;
+  margin-top: calc(35vh + 55px);
+  margin-left: 12.5vw;
+}
+
+#ldoor button.l {
+  margin-left: -150px;
+}
+
+.doorbutton {
+  position: absolute;
+  margin-top: 35vh;
+  margin-left: 12.5vw;
+  background-color: red;
+}
+
+.door#ldoor .fuckingleftdoor {
+  margin-left: 36.19vw;
+}
